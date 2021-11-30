@@ -1,91 +1,86 @@
-* {
-  margin: 0px;
-  padding: 0px;
-  box-sizing: border-box;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+body{
+  min-height:100vh;
+  overflow-x:hidden;
+}
+.search{
+  position: fixed;
+  top:0;
+  left:0;
+  width:100vw;
+  display:flex;
+  min-height: 10vh;
+  justify-content: center;
+  align-items:center;
+  border-bottom:1px solid rgba(0,0,0,0.3);
+  z-index:1;
+  background: black; 
+}
+input{
+  padding:0.5rem;
+  outline:none;
+  font-size: 1 rem;
+}
+.searchbutton{
+  padding: 0.5rem 3rem;
+  margin-left:10px;
+  background: black;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer; 
+  text-align: center;
+}
+.next{
+  position: fixed;
+  top:90%;
+  right:0%;
+  padding:0.5rem 0.5rem;
+  border: 1px solid black;
+  width: 100px;
+  text-align: center;
+  cursor:pointer; 
+}
+.gallery{
+  width:90%;
+  margin:12vh 50%;
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: repeat(5, 200px);
+  row-gap:10px;
+  column-gap:10px;
+  justify-content:center;
+}
+.gallery div {
+  position: relative;  
 }
 
-body {
-  background-color: #1a191f;
-  font-family: "Open Sans", sans-serif;
+img{
+  margin-left; 5px;
+  height: 300px;
+  width:200px;
+  object-fit:cover;
+  object-position:center;
+  cursor:pointer;
 }
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.header__content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px;
-  height: 60px;
-}
-
-.header__logo {
-  font-size: 32px;
-  text-decoration: none;
-  color: #ffffff;
-}
-
-.header__search {
-  padding: 8px;
-  border: 2px solid #1a191f;
-  border-radius: 5px;
-  outline: none;
-}
-
-.pictures {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
-.pic {
-  width: 240px;
-  margin: 10px;
-  position: relative;
-}
-
-.pic__cover-inner {
-  position: relative;
-  height: 360px;
-}
-
-.pic__cover {
-  max-width: 100%;
-  height: 100%;
-}
-
-.pic__cover--darkened {
-  background-color: #000000;
-  opacity: 0.1;
+p{
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  max-width: 100%;
-  height: 100%;
-  z-index: 1;
+  margin-left: 10px;
+  bottom: 5px;
+  color:white; 
+  font-weight:bold;
+  opacity: 0.5;
+  
 }
-
-.pic__cover--darkened:hover {
-  background-color: grey;
-  cursor: pointer;
+a{
+  position: absolute;
+  top:0;
+  left:0;
+  text-decoration:underline;
+  color: black;
+  margin-left:10px;
+  font-weight:bold;
 }
-
-.pic__info {
-  padding: 10px 0px;
-}
-
-.pic__title {
-  font-size: 16px;
-  color: #ffffff;
-}
-
-.pic__category {
-  font-size: 14px;
-  color: #ffd80e;
-}
-
-
