@@ -1,34 +1,87 @@
-const API_KEY ='1aa73561a242a3323423e405256871bf';
-const API_URL_DINOSAURS = 'https://dog.ceo/api/breeds/image/random';
+const auth = "563492ad6f9170000100000100fb58a5f0854d52b0c60e0f2018629f";
+const next = document.querySelector(".next");
+const input = document.querySelector("input");
+const searchbutton =document.querySelector (".searchbutton");
 
-getPictures (API_URL_DINOSAURS);
-async function getPictures(url){
-  const resp = await fetch(url,{
-    headers:{
-      "Content-Type": "application/json",
-      "X-API-KEY": API_KEY,
-    },
-  });
-  const respData = await resp.json();
-  showPictures(respData);
+let pagenr = 1;
+let search = false;
+let query= " ";
+
+input.addEventListener("input", (e) =>{
+  e.preventDefault();
+  query = e.target.value;
+});
+
+async function CuratedPhotos(pagenr)
+{
+  const data = await fetch ( `https://api.pexels.com/v1/curated?per_page=20 &page=${pagenr}`,
+    {
+      method :"GET",
+      headers: {
+               Accept: "application/json",
+               Authorization: auth,
+               },
+    } 
+    );
+   const result = await data.json();
+   result.photos.forEach((photo) =>{
+     const pic = document.createElement ("div");
+     pic.innerHTML = `<img src=${photo.src.large}>
+     <p>${photo.photographer}</p>
+     <a href=${photo.src.large}>Click Me</a>
+     `;
+     document.querySelector(".gallery").appendChild(pic);
+   });
 }
- function showPictures(data){
-   const picturesEl = document.querySelector(".pictures");
-   
-   data.dino.forEach (pic => {
-     const picEl = document.createElement("div")
-     picEl.classList.add("picture")
-     picEl.innerHTML = 
-       <div class="pic__cover-inner">
-        <img
-          src="${pic.dinoUrlPreview}"
-          class="pic__cover"
-          alt="${pic.name}"
-        />
-        <div class="pic__cover--darkened"></div>
-      </div>
-          ;
-    pictures.appendChild(movie);
-   })
- }
+
+async function SearchPhotos(query, pagenr)
+{
+  const data = await fetch ( `https://api.pexels.com/v1/search?query=${query}&per_page=20&page=${pagenr}`,
+    {
+      method :"GET",
+      headers: {
+               Accept: "application/json",
+               Authorization: auth,
+               },
+    } 
+    );
+   const result = await data.json();
+   result.photos.forEach((photo) =>{
+     const pic = document.createElement ("div");
+     pic.innerHTML = `<img src=${photo.src.large}>
+     <p>${photo.photographer}</p>
+     <a href=${photo.src.large}>Click Me</a>
+     `;
+     document.querySelector(".gallery").appendChild(pic);
+   });
+}
+
+searchbutton.addEventListener("click",() => {
+  if (input.value === "") return;
+  clear();
+  search = true;
+  SearchPhotos(query.pagenr);
+  pagenr++;
+});
+
+function clear()
+{
+  input.value="";
+  document.querySelector(".gallery").innerHTML ="";
+  pagenr = 1;
+}
+                             
+
+next.addEventListener("click", () => {
+  if (!search) {
+      pagenr++;
+      CuratedPhotos(pagenr);
+    } else{
+      if (query.value === "") return;
+      pagenr++;
+      SearchPhotos(query,pagenr);
+    }  
+});
+CuratedPhotos(pagenr);
+
 
